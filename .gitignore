@@ -1,0 +1,46 @@
+# --- Python virtual environments ---
+venv/
+.env/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Environment variable files ---
+*.env
+.env.*
+*.ini
+*.cfg
+*.toml
+*.yaml
+*.yml
+
+# --- Python cache / build ---
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+*.pyd
+
+# --- Jupyter Notebook checkpoints ---
+.ipynb_checkpoints/
+
+# --- VS Code ---
+.vscode/
+*.code-workspace
+
+# --- IDE project folders ---
+.idea/
+*.iml
+
+# --- Logs ---
+*.log
+
+# --- OS generated files ---
+.DS_Store
+Thumbs.db
