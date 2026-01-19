@@ -40,33 +40,33 @@ Optional: Docker containers for frontend/backend
 Prereqs: Python 3.9+, git, (optional) Docker.
 
 Clone
-git clone <repo-url>
-cd <repo>
+  git clone <repo-url>
+  cd <repo>
 
 Create a virtualenv and install requirements
-python -m venv .venv
-source .venv/bin/activate     # macOS / Linux
-.venv\Scripts\activate        # Windows PowerShell
-pip install -r requirements.txt
+  python -m venv .venv
+  source .venv/bin/activate     # macOS / Linux
+  .venv\Scripts\activate        # Windows PowerShell
+  pip install -r requirements.txt  
 
 Environment variables
 For LLM (Groq) integration set:
-GROQ_API_KEY=sk-...
+  GROQ_API_KEY=sk-...
 Example (Linux/macOS):
-export GROQ_API_KEY="sk-..."
+  export GROQ_API_KEY="sk-..."
 Windows PowerShell:
-$env:GROQ_API_KEY="sk-..."
+  $env:GROQ_API_KEY="sk-..."
 
 ▶️ Run the backend (FastAPI)
 Start the backend that serves both chat and prediction endpoints:
-uvicorn pcos_backend_improved:app --reload --port 8000
+  uvicorn pcos_backend_improved:app --reload --port 8000
 
 Endpoints:
 
 POST /chat — accepts {"messages": [...]} (OpenAI-style). Returns:
-{ "assistant": "...", "sources": [...], "confidence": 0.85 }
+  { "assistant": "...", "sources": [...], "confidence": 0.85 }
 POST /predict — accepts user features JSON (see example below). Returns:
-{ "probability": 0.42, "risk_pct": 42.0, "top_features": [{"feature":"BMI","value":...}], "explanation": "..." }
+  { "probability": 0.42, "risk_pct": 42.0, "top_features": [{"feature":"BMI","value":...}], "explanation": "..." }
 Example /chat request:
 
 {
@@ -77,21 +77,21 @@ Example /chat request:
 }
 Example /predict request:
 
-{
-  "features": {
-    "Age": 27,
-    "Height(cm)": 162,
-    "Weight(kg)": 62,
-    "BMI": 23.6,
-    "Cycle Length(days)": 35,
-    ...
+  {
+    "features": {
+      "Age": 27,
+      "Height(cm)": 162,
+      "Weight(kg)": 62,
+      "BMI": 23.6,
+      "Cycle Length(days)": 35,
+      ...
+    }
   }
-}
 
 ▶️ Run the frontend (Streamlit)
 Start the Streamlit app (UI: chatbot, prediction form, tracker, doctors):
 
-streamlit run app.py
+  streamlit run app.py
 The app expects the backend at http://localhost:8000 by default. You can change endpoints in the Streamlit config/constants.
 🧪 Training & Model artifacts
 Training script: train_pcos_realdata.py
