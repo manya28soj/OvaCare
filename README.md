@@ -1,10 +1,10 @@
-🌸 PCOS Care — Women’s Health Assistant
+# 🌸 PCOS Care — Women’s Health Assistant
 
 A friendly, end-to-end Women’s Health Assistant focused on PCOS (Polycystic Ovary Syndrome). This project combines a reproducible Random Forest risk model, a focused AI chatbot (Groq/OpenAI compatible), a period tracker, and a doctor contact directory — all wrapped in a clean, privacy-minded frontend and a lightweight FastAPI backend.
 
 The aim: help people learn, triage, and prepare for conversations with healthcare providers — not to diagnose.
 
-💡 Key Features
+# 💡 Key Features
 
 Predictive model
 Reproducible Random Forest classifier (training script included)
@@ -27,7 +27,7 @@ Modular frontend/backend separation
 Docker-ready, simple deployment instructions
 README, sample requests, and example backend for Groq included
 
-🏗 Architecture (high level)
+# 🏗 Architecture (high level)
 Frontend: Streamlit app (UI for prediction, chatbot, tracker, directory)
 Backend: FastAPI
 /chat -> handles chatbot requests, retrieves FAQ context, calls LLM
@@ -36,7 +36,7 @@ Model artifacts: stored under models/ (joblib)
 Local data: data.csv (training / sample records)
 Optional: Docker containers for frontend/backend
 
-🚀 Quickstart (developer)
+# 🚀 Quickstart (developer)
 Prereqs: Python 3.9+, git, (optional) Docker.
 
 Clone
@@ -57,7 +57,7 @@ Example (Linux/macOS):
 Windows PowerShell:
   $env:GROQ_API_KEY="sk-..."
 
-▶️ Run the backend (FastAPI)
+# ▶️ Run the backend (FastAPI)
 Start the backend that serves both chat and prediction endpoints:
   uvicorn pcos_backend_improved:app --reload --port 8000
 
@@ -88,12 +88,12 @@ Example /predict request:
     }
   }
 
-▶️ Run the frontend (Streamlit)
+# ▶️ Run the frontend (Streamlit)
 Start the Streamlit app (UI: chatbot, prediction form, tracker, doctors):
 
   streamlit run app.py
 The app expects the backend at http://localhost:8000 by default. You can change endpoints in the Streamlit config/constants.
-🧪 Training & Model artifacts
+# 🧪 Training & Model artifacts
 Training script: train_pcos_realdata.py
 Loads data.csv, preprocesses, trains RandomForestClassifier, evaluates, saves artifacts under models/ using joblib.
 Recommended improvements for production:
@@ -108,12 +108,12 @@ models/scaler.pkl
 models/feature_names.pkl
 The backend will load these artifacts and expose /predict.
 
-📚 Curated FAQ & Retrieval
+# 📚 Curated FAQ & Retrieval
 The backend includes a small curated FAQ (JSON/embedded list). When user queries closely match FAQ entries, the service returns short deterministic answers. Otherwise it appends FAQ snippets to the LLM prompt to ground responses.
 
 Add vetted references to FAQ_ITEMS (in pcos_backend_improved.py) to improve correctness and traceability.
 
-🔒 Privacy & Disclaimer
+# 🔒 Privacy & Disclaimer
 This project is educational and supportive; it is NOT a medical diagnostic tool.
 Do not store personally identifiable information (PII) in logs.
 Display a clear disclaimer in the UI: recommend users consult a clinician for diagnosis or urgent concerns.
@@ -121,7 +121,7 @@ Suggested UI disclaimer:
 
 This tool provides risk estimations and educational content only. It is not a substitute for professional medical advice.
 
-🐳 Docker (optional)
+# 🐳 Docker (optional)
 Example Dockerfiles are provided for frontend/backend. Basic commands:
 
 # build backend
@@ -133,7 +133,8 @@ docker build -t pcos-frontend -f Dockerfile.frontend .
 docker run -p 8501:8501 pcos-frontend
 Adjust CORS and allowed hosts for production.
 
-✅ Testing & Validation
+# ✅ Testing & Validation
+
 Unit tests: model loading, /predict schema, /chat request handling.
 Manual validation: compare predicted probabilities with known cases or clinician feedback.
 Monitor drift and set alerts if the prediction distribution changes.
