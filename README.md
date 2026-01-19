@@ -5,27 +5,28 @@ A friendly, end-to-end Women’s Health Assistant focused on PCOS (Polycystic Ov
 The aim: help people learn, triage, and prepare for conversations with healthcare providers — not to diagnose.
 
 💡 Key Features
-Predictive model
 
+Predictive model
 Reproducible Random Forest classifier (training script included)
 Saves artifacts: model, encoders, scaler, feature names
 Produces probability-based risk score and top contributing features
-PCOS Expert Chatbot
 
+PCOS Expert Chatbot
 Streamlit frontend + FastAPI backend integration
 Backend can call Groq/OpenAI LLMs with a strict PCOS-only system prompt
 Retrieval-first layer using curated FAQ for deterministic answers when possible
 Returns structured response: assistant text, sources, confidence
-Utilities
 
+Utilities
 Period Tracker (browser storage)
 Doctor Directory (click-to-call/email)
 UI-first Streamlit app for prediction, charts, and chatbot
-Developer-friendly
 
+Developer-friendly
 Modular frontend/backend separation
 Docker-ready, simple deployment instructions
 README, sample requests, and example backend for Groq included
+
 🏗 Architecture (high level)
 Frontend: Streamlit app (UI for prediction, chatbot, tracker, directory)
 Backend: FastAPI
@@ -34,31 +35,32 @@ Backend: FastAPI
 Model artifacts: stored under models/ (joblib)
 Local data: data.csv (training / sample records)
 Optional: Docker containers for frontend/backend
+
 🚀 Quickstart (developer)
 Prereqs: Python 3.9+, git, (optional) Docker.
 
 Clone
-
 git clone <repo-url>
 cd <repo>
-Create a virtualenv and install requirements
 
+Create a virtualenv and install requirements
 python -m venv .venv
 source .venv/bin/activate     # macOS / Linux
 .venv\Scripts\activate        # Windows PowerShell
 pip install -r requirements.txt
-Environment variables
 
+Environment variables
 For LLM (Groq) integration set:
 GROQ_API_KEY=sk-...
 Example (Linux/macOS):
 export GROQ_API_KEY="sk-..."
 Windows PowerShell:
 $env:GROQ_API_KEY="sk-..."
+
 ▶️ Run the backend (FastAPI)
 Start the backend that serves both chat and prediction endpoints:
-
 uvicorn pcos_backend_improved:app --reload --port 8000
+
 Endpoints:
 
 POST /chat — accepts {"messages": [...]} (OpenAI-style). Returns:
@@ -85,6 +87,7 @@ Example /predict request:
     ...
   }
 }
+
 ▶️ Run the frontend (Streamlit)
 Start the Streamlit app (UI: chatbot, prediction form, tracker, doctors):
 
