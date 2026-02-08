@@ -4889,5 +4889,71 @@
         }
     }
     </script>
+    <!-- Auto-fix for Netlify: rewrite relative API calls to configured backend and ensure login submits form-encoded -->
+    <script>
+    (function(){
+        // Set your deployed backend URL here (example: https://your-backend.onrender.com)
+        // You can also replace this string during deploy or use Netlify environment variables to inject.
+        const BACKEND = window.__BACKEND_URL__ || 'https://your-backend.onrender.com';
+
+        // Monkey-patch window.fetch so relative paths (/predict, /auth/login, etc.) are routed to BACKEND
+        const _fetch = window.fetch.bind(window);
+        window.fetch = function(input, init){
+            try{
+                if (typeof input === 'string' && input.startsWith('/')){
+                    input = BACKEND + input;
+                } else if (input && input.url && typeof input.url === 'string' && input.url.startsWith('/')){
+                    input = new Request(BACKEND + input.url, input);
+                }
+            }catch(e){/* ignore */}
+            return _fetch(input, init);
+        };
+
+        // Wire up any login forms to POST form-encoded to /auth/login
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('form').forEach(form => {
+                // basic heuristic: form contains password input and a username/email input
+                const pwd = form.querySelector('input[type="password"]');
+                const user = form.querySelector('input[name="username"], input[name="email"], input[placeholder*="User"]');
+                if (pwd && user && !form._loginWired){
+                    form._loginWired = true;
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const username = user.value || form.querySelector('input[name="email"]').value;
+                        const password = pwd.value;
+                        const params = new URLSearchParams();
+                        params.append('username', username);
+                        params.append('password', password);
+                        try{
+                            const resp = await fetch(BACKEND + '/auth/login', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                body: params.toString()
+                            });
+                            if (resp.ok){
+                                const data = await resp.json();
+                                // store token and mark logged in
+                                if (data && data.access_token){
+                                    localStorage.setItem('token', data.access_token);
+                                    localStorage.setItem('isLoggedIn', 'true');
+                                    // reload to show app
+                                    location.reload();
+                                } else {
+                                    alert('Login succeeded but no token returned');
+                                }
+                            } else {
+                                const txt = await resp.text();
+                                alert('Login failed: ' + (txt || resp.status));
+                            }
+                        }catch(err){
+                            console.error('Login error', err);
+                            alert('Network error during login');
+                        }
+                    });
+                }
+            });
+        });
+    })();
+    </script>
 </body>
 </html>
