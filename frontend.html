@@ -4894,7 +4894,7 @@
     (function(){
         // Set your deployed backend URL here (example: https://your-backend.onrender.com)
         // You can also replace this string during deploy or use Netlify environment variables to inject.
-        const BACKEND = window.__BACKEND_URL__ || 'https://your-backend.onrender.com';
+        const BACKEND = window.__BACKEND_URL__ || 'https://ovacare-backend-qn8e.onrender.com';
 
         // Monkey-patch window.fetch so relative paths (/predict, /auth/login, etc.) are routed to BACKEND
         const _fetch = window.fetch.bind(window);
