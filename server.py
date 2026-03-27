@@ -12,7 +12,7 @@ import requests
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
-from router.auth import auth_router, get_current_user 
+from Routers.auth import auth_router, get_current_user 
 from router.tracker import tracker_router
 from router.doctor import router as doctor_router
 from db import init_db
