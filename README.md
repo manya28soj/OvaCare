@@ -1,5 +1,13 @@
 # 🌸 PCOS Care — Women’s Health Assistant
 
+## Demo Video
+
+🎥 [Watch Demo](https://drive.google.com/file/d/1jptnbjwx5fzbjQ7Ya2v4yyY27GnxIfnN/view)
+
+
+
+
+
 A friendly, end-to-end Women’s Health Assistant focused on PCOS (Polycystic Ovary Syndrome). This project combines a reproducible Random Forest risk model, a focused AI chatbot (Groq/OpenAI compatible), a period tracker, and a doctor contact directory — all wrapped in a clean, privacy-minded frontend and a lightweight FastAPI backend.
 
 The aim: help people learn, triage, and prepare for conversations with healthcare providers — not to diagnose.
